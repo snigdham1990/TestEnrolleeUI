@@ -1,0 +1,60 @@
+<h1 mat-dialog-title>Edit enrollee details</h1>
+<div mat-dialog-content>
+   <table>
+      <tr>
+         <td>
+            <mat-label style="font-weight: bold;">Id:</mat-label>
+            <mat-label>   {{data.id}} </mat-label>
+         </td>
+         <td></td>
+      </tr>
+      <tr>
+         <td>
+            <mat-label style="font-weight: bold;">Date of birth:</mat-label>
+            <mat-label>{{data.dateOfBirth}}</mat-label>
+         </td>
+         <td></td>
+      </tr>
+      <tr>
+         <td>
+            <div *ngIf="showNameInputVal == false">
+               <mat-label style="font-weight: bold;">Name:</mat-label>
+               <mat-label>   {{data.name}}</mat-label>
+            </div>
+            <mat-form-field *ngIf="showNameInputVal == true">
+                <mat-label>Name:</mat-label>
+                <input matInput placeholder="Name" [(ngModel)]="currentValue">
+              </mat-form-field>
+            
+         </td>
+         <td>
+            <span  *ngIf="showNameInputVal == false"class="material-icons" (click)="showNameInput()">edit</span>
+            <span  *ngIf="showNameInputVal == true" class="material-icons" (click)="showNameInput()">close</span>
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <div *ngIf="showActiveInputVal == false">
+               <mat-label style="font-weight: bold;">Activation Status:</mat-label>
+               <mat-label>  {{data.active}}</mat-label>
+            </div>
+           
+            <mat-form-field *ngIf="showActiveInputVal == true"appearance="fill">
+               <mat-label>Select enrollment status</mat-label>
+               <mat-select [(value)]="activationStatusValue">
+               <mat-option value=1>true</mat-option>
+               <mat-option value=0>false</mat-option>
+               </mat-select>
+            </mat-form-field>
+         </td>
+         <td>  <span *ngIf="showActiveInputVal == false" class="material-icons" (click)="showActiveInput()">edit</span>
+            <span  *ngIf="showActiveInputVal == true" class="material-icons" (click)="showActiveInput()">close</span>
+         </td>
+      </tr>
+   </table>
+  
+</div>
+<div >
+   <button mat-button (click)="onNoClick('close')">Close</button>
+   <button mat-button color="primary" (click)="onNoClick('save')" cdkFocusInitial>Save</button>
+</div>

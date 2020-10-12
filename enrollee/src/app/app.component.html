@@ -1,0 +1,48 @@
+<div style="background-color: #3f51b5;;">
+ <h1 style="padding-top: 10px;padding-bottom: 10px;text-align: center;color: #fff;">Enrollees List</h1>
+</div>
+<mat-card>
+  <div class="alertError" role="alert" *ngIf="alertError==true">
+
+   <b>ERROR: </b> {{ErrMsg}} 
+
+  </div>
+  <div class="alertSuccess" role="alert" *ngIf="alertSuccess==true">
+    <b>SUCCESS: </b> {{SuccessMsg}} 
+   </div>
+  <table  class="mainTable" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    
+    <!-- Id Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element" > <span class="material-icons" (click)="openDialog(element)" matTooltip="Edit enrollee details">edit</span></td>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+  
+   
+    <ng-container matColumnDef="dateOfBirth">
+      <th mat-header-cell *matHeaderCellDef> Date Of birth </th>
+      <td mat-cell *matCellDef="let element"> {{element.dateOfBirth}} </td>
+    </ng-container>
+    <ng-container matColumnDef="active">
+      <th mat-header-cell *matHeaderCellDef> Activation Status </th>
+      <td mat-cell *matCellDef="let element"> 
+        <p *ngIf="element.active==true" style="color:green;font-weight: bolder;">{{element.active}}</p>
+        <p *ngIf="element.active==false"style="color:red;font-weight: bolder;">{{element.active}}</p> </td>
+    </ng-container>
+    
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</mat-card>
