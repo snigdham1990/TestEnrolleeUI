@@ -53,7 +53,8 @@ export class AppComponent {
     openDialog(element:DialogData): void {
       this.selectedData = element;
       const dialogRef = this.dialog.open(DialogComponentComponent, {
-        width: '400px',
+        width: '600px',
+        height:'400px',
         data: { id: element.id, name: element.name, dateOfBirth: element.dateOfBirth, active : element.active}
       });
   
@@ -61,7 +62,6 @@ export class AppComponent {
       //  console.log('The dialog was closed'+JSON.stringify(result));
       if((result.name!=element.name && result.name!=undefined) || result.active!= element.active){
         // call service to update.
-        debugger;
         let activeVal:boolean;
         if(result.active == "1"){
           activeVal=true;

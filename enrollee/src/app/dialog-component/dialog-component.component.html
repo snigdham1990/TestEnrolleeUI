@@ -1,60 +1,85 @@
-<h1 mat-dialog-title>Edit enrollee details</h1>
+<!-- <h1 mat-dialog-title></h1> -->
+<div style="background-color: #3f51b5;margin-top:0%;">
+   <h1 mat-dialog-title style="padding-top: 10px;padding-bottom: 10px;text-align: center;vertical-align:middle;color: #fff;">Edit enrollee details</h1>
+  </div>
 <div mat-dialog-content>
-   <table>
-      <tr>
-         <td>
-            <mat-label style="font-weight: bold;">Id:</mat-label>
-            <mat-label>   {{data.id}} </mat-label>
+   <label style="color:#3f51b5;font-weight: bold;">* Details with <span class="material-icons" >edit</span> icon are editable.
+   </label>
+   <table style="width:100%;">
+      <tr >
+         <td >
+            <mat-label >Id:</mat-label>
+           
          </td>
-         <td></td>
+         <td>
+            <mat-label  style="font-weight: bolder;color:#A8A8A8">   {{data.id}} </mat-label>
+         </td>
+         <td style="width:18%"></td>
       </tr>
       <tr>
          <td>
-            <mat-label style="font-weight: bold;">Date of birth:</mat-label>
-            <mat-label>{{data.dateOfBirth}}</mat-label>
+            <mat-label >Date of birth:</mat-label>
+         
+         </td>
+         <td>
+            <mat-label style="font-weight:bolder;color:#A8A8A8">{{data.dateOfBirth}}</mat-label>
          </td>
          <td></td>
       </tr>
+    
       <tr>
          <td>
-            <div *ngIf="showNameInputVal == false">
-               <mat-label style="font-weight: bold;">Name:</mat-label>
-               <mat-label>   {{data.name}}</mat-label>
-            </div>
-            <mat-form-field *ngIf="showNameInputVal == true">
-                <mat-label>Name:</mat-label>
-                <input matInput placeholder="Name" [(ngModel)]="currentValue">
-              </mat-form-field>
+            <div >
+               <mat-label >Name:</mat-label>
+             
+            </div>           
             
          </td>
          <td>
-            <span  *ngIf="showNameInputVal == false"class="material-icons" (click)="showNameInput()">edit</span>
-            <span  *ngIf="showNameInputVal == true" class="material-icons" (click)="showNameInput()">close</span>
+            <mat-label  style="font-weight: bold;" *ngIf="showNameInputVal == false && datacheckName == false"> {{data.name}}</mat-label>
+            <mat-label  style="font-weight: bold;" *ngIf="datacheckName == true">   {{dataCopy.name}}</mat-label>
+
+            <mat-form-field *ngIf="showNameInputVal == true && datacheckName == false">
+            <mat-label>Name:</mat-label>
+            <input matInput placeholder="Name" [(ngModel)]="currentValue">
+          </mat-form-field>
+          <p *ngIf="shownameError == true" style="color:red;">Please enter name.</p>
          </td>
+         <td>
+            <span *ngIf="showNameInputVal == false"class="material-icons" (click)="showNameInput()">edit</span>
+            <span style="color:red;" *ngIf="showNameInputVal == true" class="material-icons" (click)="crossClicked('name')">close</span>
+            <span style="margin-left:10px;color:green;" *ngIf="showNameInputVal == true" class="material-icons" (click)="newDataReceived('name')">done</span>         </td>
       </tr>
       <tr>
          <td>
-            <div *ngIf="showActiveInputVal == false">
-               <mat-label style="font-weight: bold;">Activation Status:</mat-label>
-               <mat-label>  {{data.active}}</mat-label>
+            <div >
+               <mat-label >Activation Status:</mat-label>
+            
             </div>
-           
-            <mat-form-field *ngIf="showActiveInputVal == true"appearance="fill">
+         </td>
+         <td> 
+            <mat-label style="font-weight: bold;" *ngIf="showActiveInputVal == false && datacheckActive == false ">  {{data.active}}</mat-label>
+            <mat-label style="font-weight: bold;" *ngIf="datacheckActive == true">  {{dataCopy.active}}</mat-label>
+
+            <mat-form-field *ngIf="showActiveInputVal == true && datacheckActive == false "appearance="fill">
                <mat-label>Select enrollment status</mat-label>
                <mat-select [(value)]="activationStatusValue">
-               <mat-option value=1>true</mat-option>
-               <mat-option value=0>false</mat-option>
+               <mat-option value=true>true</mat-option>
+               <mat-option value=false>false</mat-option>
                </mat-select>
             </mat-form-field>
          </td>
-         <td>  <span *ngIf="showActiveInputVal == false" class="material-icons" (click)="showActiveInput()">edit</span>
-            <span  *ngIf="showActiveInputVal == true" class="material-icons" (click)="showActiveInput()">close</span>
+    <td>      
+            <span *ngIf="showActiveInputVal == false" class="material-icons" (click)="showActiveInput()">edit</span>
+            <span style="color:red;" *ngIf="showActiveInputVal == true" class="material-icons" (click)="crossClicked('active')">close</span>
+            <span style="margin-left:10px;color:green;" *ngIf="showActiveInputVal == true" class="material-icons" (click)="newDataReceived('active')">done</span>
+
          </td>
       </tr>
+      
    </table>
-  
-</div>
-<div >
-   <button mat-button (click)="onNoClick('close')">Close</button>
-   <button mat-button color="primary" (click)="onNoClick('save')" cdkFocusInitial>Save</button>
+   </div>
+   <div style="margin-left: 70%;margin-top: 15px !important;">      
+   <button mat-flat-button (click)="onNoClick('close')">Close</button>&nbsp;&nbsp;
+   <button mat-flat-button [ngClass]="{'enabledClass' : !isSaveDisabled}" (click)="onNoClick('save')" [disabled]="isSaveDisabled==true" cdkFocusInitial>Save</button>
 </div>
